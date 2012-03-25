@@ -89,7 +89,7 @@ private void _setupTask() {
       MapLookup.setLicenseKey(ttfLicense.getText());
       // get the uri for the static map
       String Addr = "";
-      String [] sep = {SavedAddr._ttfAddress.getText(), 
+      String [] sep = {SavedAddr._ttfStreet.getText(), 
     		  		   SavedAddr._ttfCity.getText(), 
     		  		   SavedAddr._ttfProvince.getText(), 
     		  		   SavedAddr._ttfCountry.getText(), 
@@ -344,11 +344,11 @@ private void initComponents() {
 	MapPosition p1 = new MapPosition();
 	MapPosition p2 = new MapPosition();
 	MapPosition p3 = new MapPosition();
-	p1._address = "70 The Pond Road";
+	p1._street = "70 The Pond Road";
 	p2._city = "Toronto";
 	p2._province = "Ontario";
 	p3._pCode = "M5V 3V9";
-	p3._address = "35 Mariner Terrace";
+	p3._street = "35 Mariner Terrace";
 	p3._city = "Toronto";
 	p3._province = "Ontario";
 	p3._country = "Canada";
@@ -460,8 +460,8 @@ private void initComponents() {
   			//---- FavAddr ----
   			panel1.add(SavedAddr, new TableLayoutConstraints(2, 0, 6, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 			*/
-  			panel1.add(SavedAddr._lblAddress, new TableLayoutConstraints(2, 0, 2, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-  			panel1.add(SavedAddr._ttfAddress, new TableLayoutConstraints(3, 0, 6, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  			panel1.add(SavedAddr._lblStreet, new TableLayoutConstraints(2, 0, 2, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  			panel1.add(SavedAddr._ttfStreet, new TableLayoutConstraints(3, 0, 6, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   			panel1.add(SavedAddr._lblCity, new TableLayoutConstraints(2, 1, 2, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   			panel1.add(SavedAddr._ttfCity, new TableLayoutConstraints(3, 1, 3 ,1 ,TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   			panel1.add(SavedAddr._lblProvince, new TableLayoutConstraints(4, 1, 4, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));

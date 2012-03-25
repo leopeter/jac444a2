@@ -24,8 +24,8 @@ public class AddressDropList extends JPanel
 	public JTextField _ttfProvince = new JTextField();
 	public JLabel _lblCity = new JLabel("City");
 	public JTextField _ttfCity = new JTextField();
-	public JLabel _lblAddress = new JLabel("Address");
-	public JTextField _ttfAddress = new JTextField();
+	public JLabel _lblStreet = new JLabel("Street");
+	public JTextField _ttfStreet = new JTextField();
 	public JLabel _lblPostCode = new JLabel("Postal Code");
 	public JTextField _ttfPostCode = new JTextField();
 	public JComboBox _dropList;
@@ -55,14 +55,14 @@ public class AddressDropList extends JPanel
   				{TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));// decide columns
   			((TableLayout)dialogPane.getLayout()).setHGap(5);
   			((TableLayout)dialogPane.getLayout()).setVGap(5);
-  		_lblAddress.setHorizontalAlignment(SwingConstants.RIGHT);
+  		_lblStreet.setHorizontalAlignment(SwingConstants.RIGHT);
   		_lblCity.setHorizontalAlignment(SwingConstants.RIGHT);
   		_lblProvince.setHorizontalAlignment(SwingConstants.RIGHT);
   		_lblCountry.setHorizontalAlignment(SwingConstants.RIGHT);
   		_lblPostCode.setHorizontalAlignment(SwingConstants.RIGHT);
   		_lblSave.setHorizontalAlignment(SwingConstants.RIGHT);
-  		dialogPane.add(_lblAddress, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
-  		dialogPane.add(_ttfAddress, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  		dialogPane.add(_lblStreet, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  		dialogPane.add(_ttfStreet, new TableLayoutConstraints(1, 0, 4, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		dialogPane.add(_lblCity, new TableLayoutConstraints(0, 1, 0, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		dialogPane.add(_ttfCity, new TableLayoutConstraints(1, 1, 1, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		dialogPane.add(_lblProvince, new TableLayoutConstraints(2, 1, 2, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
@@ -124,11 +124,11 @@ public class AddressDropList extends JPanel
 		_ttfCountry.setText(Selected._country);
 		_ttfProvince.setText(Selected._province);
 		_ttfCity.setText(Selected._city);
-		_ttfAddress.setText(Selected._address);
+		_ttfStreet.setText(Selected._street);
 		_ttfPostCode.setText(Selected._pCode);
 		/*
 		OutputAddr = "";
-		String [] sep = {Selected._address, Selected._city, Selected._province, Selected._country, Selected._pCode};
+		String [] sep = {Selected._street, Selected._city, Selected._province, Selected._country, Selected._pCode};
 		int Comma = -1;
 		for ( int i = 0; i < 5; i++ ) {
 			if (!sep[i].equals(""))
@@ -158,11 +158,11 @@ public class AddressDropList extends JPanel
 		MapPosition p1 = new MapPosition();
 		MapPosition p2 = new MapPosition();
 		MapPosition p3 = new MapPosition();
-		p1._address = "70 The Pond Road";
+		p1._street = "70 The Pond Road";
 		p2._city = "Toronto";
 		p2._province = "Ontario";
 		p3._pCode = "M5V 3V9";
-		p3._address = "35 Mariner Terrace";
+		p3._street = "35 Mariner Terrace";
 		p3._city = "Toronto";
 		p3._province = "Ontario";
 		p3._country = "Canada";

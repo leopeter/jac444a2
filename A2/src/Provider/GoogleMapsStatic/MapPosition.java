@@ -7,7 +7,7 @@ public class MapPosition {
 	public String _country;
 	public String _province;
 	public String _city;
-	public String _address;
+	public String _street;
 	public String _pCode;
 	public String _outputString;
 	
@@ -15,13 +15,13 @@ public class MapPosition {
 		_country = "";
 		_province = "";
 		_city = "";
-		_address = "";
+		_street = "";
 		_pCode = "";
 	}
 	
 	public String toString() {
 		String s = "";
-		String [] sep = {_address, _city, _province, _country, _pCode};
+		String [] sep = {_street, _city, _province, _country, _pCode};
 		int Comma = -1;
 		for ( int i = 0; i < 5; i++ ) {
 			if (!sep[i].equals(""))
@@ -42,7 +42,7 @@ public class MapPosition {
 	/*
 	public String outputString() {
 		String s = "";
-		String [] sep = {_address, _city, _province, _country, _pCode};
+		String [] sep = {_street, _city, _province, _country, _pCode};
 		int Comma = -1;
 		for ( int i = 0; i < 5; i++ ) {
 			if (!sep[i].equals(""))
