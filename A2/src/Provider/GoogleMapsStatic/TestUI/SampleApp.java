@@ -1,5 +1,5 @@
-/* wtf
- * Created by JFormDesigner on Mon Apr 21 12:50:34 EDT 2008
+/* 
+ * Liang Xue
  */
 
 package Provider.GoogleMapsStatic.TestUI;
@@ -16,6 +16,7 @@ import info.clearthought.layout.*;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.*;
 
+import javax.accessibility.Accessible;
 import javax.imageio.*;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -26,6 +27,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.beans.*;
+import java.io.Serializable;
 import java.text.*;
 import java.util.ArrayList;
 import java.util.concurrent.*;
@@ -66,7 +68,14 @@ private void doInit() {
   try {
     btnGetMap.setIcon(ImageUtils.loadScaledBufferedIcon("ok1.png", W, H, blur, alpha));
     btnQuit.setIcon(ImageUtils.loadScaledBufferedIcon("charging.png", W, H, blur, alpha));
-  }
+    // TODO
+    /*
+    Icon icon = new ImageIcon("C:/Users/Liang/git/jac444a_2/A2/54.ico");
+    SavedAddr._btnSave.setIcon(icon);
+    */
+    SavedAddr._btnSave.setIcon(ImageUtils.loadScaledBufferedIcon("71.png", W, H, blur, alpha));
+    SavedAddr._btnClear.setIcon(ImageUtils.loadScaledBufferedIcon("69.png", W, H, blur, alpha));
+  }	
   catch (Exception e) {
     System.out.println(e);
   }
@@ -361,7 +370,7 @@ private void initComponents() {
   //======== my declare ========
   jsZoom = new ZoomSlider();
   savePos = new JButton();
-  SavedAddr = new AddressDropList(temp);
+  SavedAddr = new AddressDropList();
   
   //======== this ========
   setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -472,6 +481,8 @@ private void initComponents() {
   			panel1.add(SavedAddr._ttfPostCode, new TableLayoutConstraints(5, 2, 5, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   			panel1.add(SavedAddr._lblSave, new TableLayoutConstraints(2, 3, 2, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   			panel1.add(SavedAddr._dropList, new TableLayoutConstraints(3, 3, 6, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  			panel1.add(SavedAddr._btnSave, new TableLayoutConstraints(6, 1, 6, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  			panel1.add(SavedAddr._btnClear, new TableLayoutConstraints(6, 2, 6, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		}
   		contentPanel.add(panel1, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 

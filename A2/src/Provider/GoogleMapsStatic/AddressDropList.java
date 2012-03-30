@@ -13,7 +13,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.*;
 
+import Provider.GoogleMapsStatic.MapPosition;
+
 import com.jgoodies.forms.factories.Borders;
+import java.io.*;
 
 public class AddressDropList extends JPanel
 							 implements ActionListener {
@@ -28,19 +31,58 @@ public class AddressDropList extends JPanel
 	public JTextField _ttfStreet = new JTextField();
 	public JLabel _lblPostCode = new JLabel("Postal Code");
 	public JTextField _ttfPostCode = new JTextField();
-	public JComboBox _dropList;
 	public String OutputAddr;
-	public ArrayList<MapPosition> _mapPos;
 	public JLabel _lblSave = new JLabel("Saved");
-	//public JLabel output = new JLabel("Output");
+	public JButton _btnSave = new JButton();
+	public JButton _btnClear = new JButton();
+	public ArrayList<MapPosition> _readList = new ArrayList<MapPosition>();
+	public String [] tokens = {"", "", "", "", ""};
 	
-	public AddressDropList(ArrayList<MapPosition> m) {
+	public ArrayList<MapPosition> _mapPos;
+	private int _selectedIndex = 0;
+	public JComboBox _dropList;
+	
+	public AddressDropList() {
+		
+		readAddress();
+		setDropList();
+		_btnSave.setText("Save");
+		_btnSave.setMnemonic('S');
+		_btnSave.setHorizontalAlignment(SwingConstants.LEFT);
+		_btnSave.setHorizontalTextPosition(SwingConstants.RIGHT);
+		_btnSave.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MapPosition savePos = new MapPosition();
+				savePos._street = _ttfStreet.getText();
+				savePos._city = _ttfCity.getText();
+				savePos._province = _ttfProvince.getText();
+				savePos._country = _ttfCountry.getText();
+				savePos._pCode = _ttfPostCode.getText();
+				savePos.writeAddress();
+				_readList.add(savePos);
+				_dropList.insertItemAt(savePos, _readList.size() - 1);
+			}
+		});
+		
+		_btnClear.setText("Clear");
+		_btnClear.setMnemonic('C');
+		_btnClear.setHorizontalAlignment(SwingConstants.LEFT);
+		_btnClear.setHorizontalTextPosition(SwingConstants.RIGHT);
+		_btnClear.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				_ttfCountry.setText("");
+				_ttfProvince.setText("");
+				_ttfStreet.setText("");
+				_ttfPostCode.setText("");
+				_ttfCity.setText("");
+			}
+		});
+		
+		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		MapPosition[] PosArray = new MapPosition[m.size()];
-		_dropList = new JComboBox(m.toArray(PosArray));
-		_dropList.setSelectedIndex(0);
-		_dropList.addActionListener(this);
-		_mapPos = m;
+		
+		
+		
 		//add(output);
 		JPanel dialogPane = new JPanel();
 		dialogPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -73,6 +115,8 @@ public class AddressDropList extends JPanel
   		dialogPane.add(_ttfPostCode, new TableLayoutConstraints(3, 2, 3, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		dialogPane.add(_lblSave, new TableLayoutConstraints(0, 3, 0, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		dialogPane.add(_dropList, new TableLayoutConstraints(1, 3, 4, 3, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  		dialogPane.add(_btnSave, new TableLayoutConstraints(4, 1, 4, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
+  		dialogPane.add(_btnClear, new TableLayoutConstraints(4, 2, 4, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		add(dialogPane);
 	}
 	/*
@@ -111,7 +155,9 @@ public class AddressDropList extends JPanel
                 setForeground(list.getForeground());
             }
             */
-            MapPosition Addr =  _mapPos.get(selectedIndex);
+			readAddress();
+			
+            MapPosition Addr =  _readList.get(selectedIndex);
             setText(Addr.toString());
 			return this;
 		}
@@ -152,6 +198,54 @@ public class AddressDropList extends JPanel
 		return this.OutputAddr;
 	}
 	
+	public void readAddress(){
+		try {
+			FileInputStream fstream = new FileInputStream("AddressList.txt");
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			while ((strLine = br.readLine()) != null) {
+				
+				for ( int i = 0; i < 5; i++ ) { // clear tokens everytime 
+					tokens[i] = "";
+				}
+				
+				MapPosition temp = new MapPosition();
+				//System.out.println(strLine);
+				tokens = strLine.split(",", 5); // 5 is necessary here
+				/*
+				System.out.println("<" + tokens[0] + ">" +
+								   "<" + tokens[1] + ">" +
+								   "<" + tokens[2] + ">" +
+								   "<" + tokens[3] + ">" +
+								   "<" + tokens[4] + ">");
+				*/
+				temp._street = tokens[0];
+				temp._city = tokens[1];
+				temp._province = tokens[2];
+				temp._country = tokens[3];
+				temp._pCode = tokens[4];
+				_readList.add(temp);
+			}
+			in.close();
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		
+	}
+	
+	public void setDropList() {
+
+		
+		if (_readList.size() > 0) {
+			MapPosition[] PosArray = new MapPosition[_readList.size()];
+			_dropList = new JComboBox(_readList.toArray(PosArray));
+			_dropList.setSelectedIndex(_selectedIndex);
+			_dropList.addActionListener(this);
+		}
+	}
+	
 	public static void main(String[] args) {
         //Create and set up the window.
 		ArrayList<MapPosition> temp = new ArrayList<MapPosition>();
@@ -171,7 +265,7 @@ public class AddressDropList extends JPanel
 		temp.add(p3);
         JFrame frame = new JFrame("SliderDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        AddressDropList test = new AddressDropList(temp);
+        AddressDropList test = new AddressDropList();
         
                  
         //Add content to the window.

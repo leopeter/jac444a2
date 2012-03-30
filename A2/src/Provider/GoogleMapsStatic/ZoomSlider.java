@@ -20,20 +20,20 @@ public class ZoomSlider extends JPanel
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
  
         //Create the slider.
-        JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
+        JSlider js = new JSlider(JSlider.HORIZONTAL,
                                               FPS_MIN, FPS_MAX, FPS_INIT);
          
  
-        framesPerSecond.addChangeListener(this);
+        js.addChangeListener(this);
  
-        framesPerSecond.setMajorTickSpacing(19);
-        framesPerSecond.setMinorTickSpacing(1);
-        framesPerSecond.setMajorTickSpacing(3);
-        framesPerSecond.setPaintTicks(true);
-        framesPerSecond.setPaintLabels(true);
+        js.setMajorTickSpacing(19);
+        js.setMinorTickSpacing(1);
+        js.setMajorTickSpacing(3);
+        js.setPaintTicks(true);
+        js.setPaintLabels(true);
 
         add(lblZoom);
-        add(framesPerSecond);
+        add(js);
         
     }
  

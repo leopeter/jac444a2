@@ -1,6 +1,7 @@
 package Provider.GoogleMapsStatic;
 
 import javax.swing.JLabel;
+import java.io.*;
 
 public class MapPosition {
 	
@@ -17,6 +18,41 @@ public class MapPosition {
 		_city = "";
 		_street = "";
 		_pCode = "";
+	}
+	
+	public void writeAddress() {
+		File f;
+		f = new File("AddressList.txt");
+		if (!f.exists()){
+			try{
+				f.createNewFile();
+				System.out.println("file is success to create");	 
+			}catch (Exception e) {
+				System.out.println("file is not exist and fail to create");	 
+			}
+		}
+		try{
+			if (!_street.equals("") ||
+				!_city.equals("") ||
+				!_province.equals("") ||
+				!_country.equals("") ||
+				!_pCode.equals("")) {
+				
+				FileWriter fstream = new FileWriter("AddressList.txt",true);
+				BufferedWriter out = new BufferedWriter(fstream);
+				String w = "";
+				w = _street + "," 
+				  + _city + ","
+				  + _province + ","
+				  + _country + ","
+				  + _pCode;
+				out.write(w);
+				out.newLine();
+				out.close();
+			}
+		}catch (Exception e) {
+			System.out.println("fail to write");
+		}
 	}
 	
 	public String toString() {
