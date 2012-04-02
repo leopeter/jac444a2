@@ -26,11 +26,13 @@ public class ZoomSlider extends JPanel
  
         js.addChangeListener(this);
  
-        js.setMajorTickSpacing(19);
-        js.setMinorTickSpacing(1);
-        js.setMajorTickSpacing(3);
-        js.setPaintTicks(true);
-        js.setPaintLabels(true);
+        js.setMajorTickSpacing(19); // max value 
+        js.setMinorTickSpacing(1); // min value
+        js.setMajorTickSpacing(3); /* display the numbers by space of 3
+        							  so it will be like 1, 4, 7, so on
+        							  */
+        js.setPaintTicks(true);  // set the paint ticks to true
+        js.setPaintLabels(true); // set the paint label to true
 
         add(lblZoom);
         add(js);
@@ -56,12 +58,13 @@ public class ZoomSlider extends JPanel
     	JSlider source = (JSlider)e.getSource();
     	if (!source.getValueIsAdjusting()) {
     		this.value = source.getValue();
-    		lblZoom.setText(Integer.toString(value));
+    		lblZoom.setText(Integer.toString(value)); // set the textfield to the changed value
     		
     	}
     	
     }
  
+    // main is just for run a demo of the class
     public static void main(String[] args) {
         //Create and set up the window.
         JFrame frame = new JFrame("SliderDemo");

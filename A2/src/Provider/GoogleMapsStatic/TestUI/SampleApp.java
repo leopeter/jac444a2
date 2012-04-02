@@ -97,6 +97,7 @@ private void _setupTask() {
       // set the license key
       MapLookup.setLicenseKey(ttfLicense.getText());
       // get the uri for the static map
+      // TODO
       String Addr = "";
       String [] sep = {SavedAddr._ttfStreet.getText(), 
     		  		   SavedAddr._ttfCity.getText(), 
@@ -119,8 +120,8 @@ private void _setupTask() {
 			}
 		}
       String uri = MapLookup.getMap((Addr),
-                                    Integer.parseInt(ttfSizeW.getText()),
-                                    Integer.parseInt(ttfSizeH.getText()),
+                                    Integer.parseInt(ttfSizeW.getValue()),
+                                    Integer.parseInt(ttfSizeH.getValue()),
                                     Integer.parseInt(Integer.toString(jsZoom.value))
       );
       sout("Google Maps URI=" + uri);
@@ -325,12 +326,12 @@ private void initComponents() {
   contentPanel = new JPanel();
   panel1 = new JPanel();
   label2 = new JLabel();
-  ttfSizeW = new JTextField();
+  ttfSizeW = new Spinner();
   label4 = new JLabel();
   ttfLat = new JTextField();
   btnGetMap = new JButton();
   label3 = new JLabel();
-  ttfSizeH = new JTextField();
+  ttfSizeH = new Spinner();
   label5 = new JLabel();
   ttfLon = new JTextField();
   btnQuit = new JButton();
@@ -413,7 +414,7 @@ private void initComponents() {
   			panel1.add(label2, new TableLayoutConstraints(0, 0, 0, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
   			//---- ttfSizeW ----
-  			ttfSizeW.setText("512");
+  			ttfSizeW = new Spinner();
   			panel1.add(ttfSizeW, new TableLayoutConstraints(1, 0, 1, 0, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
   			//---- btnGetMap ----
@@ -433,7 +434,7 @@ private void initComponents() {
   			panel1.add(label3, new TableLayoutConstraints(0, 1, 0, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
   			//---- ttfSizeH ----
-  			ttfSizeH.setText("512");
+  			ttfSizeH = new Spinner();
   			panel1.add(ttfSizeH, new TableLayoutConstraints(1, 1, 1, 1, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
 
  			//---- btnQuit ----
@@ -575,12 +576,12 @@ private JPanel dialogPane;
 private JPanel contentPanel;
 private JPanel panel1;
 private JLabel label2;
-private JTextField ttfSizeW;
+private Spinner ttfSizeW;
 private JLabel label4;
 private JTextField ttfLat;
 private JButton btnGetMap;
 private JLabel label3;
-private JTextField ttfSizeH;
+private Spinner ttfSizeH;
 private JLabel label5;
 private JTextField ttfLon;
 private JButton btnQuit;

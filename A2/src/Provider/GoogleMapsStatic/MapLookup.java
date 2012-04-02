@@ -1,26 +1,6 @@
 /*
- * Part 2: Explore and Comprehend the Source Code.
-
-1. Explore and comprehend the following methods in the MapLookup class:
-
-    getMap( ) // obtain the value, set and pass the value into getURI
-    getURI( )
-    getDataFromURI( ) 
-
-2. Explain how the StringBuffer object is used in the MapLookup class.
-
-3. Explain how "static final" is used in the MapLookup class.
-
-4. Explain how BufferedImage is used in SampleApp.java.
-
-5. Explain how the Runnable interface is used here.
-
-6. Explain the functionality of the following classes and how they are used.
-
-    org.apache.commons.httpclient.HttpClient
-    Task.Support.CoreSupport.ByteBuffer 
-
-7. Explore and comprehend the SampleApp class. 
+	This file is come from internet
+	to satisfy our work, I changed the passing attributes to a string instead of double of longtitude and latitude 
  */
 
 package Provider.GoogleMapsStatic;

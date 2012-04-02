@@ -1,3 +1,8 @@
+/*This is the class of Dropdown List
+  This class has its own layout. 
+  In the SampleApp, I dont use the layout directly
+  I add all the textfields and labels one by one
+*/
 package Provider.GoogleMapsStatic;
 
 import info.clearthought.layout.TableLayout;
@@ -44,22 +49,22 @@ public class AddressDropList extends JPanel
 	
 	public AddressDropList() {
 		
-		readAddress();
-		setDropList();
+		readAddress(); // read the saved address
+		setDropList(); // set the ComboBox 
 		_btnSave.setText("Save");
 		_btnSave.setMnemonic('S');
 		_btnSave.setHorizontalAlignment(SwingConstants.LEFT);
 		_btnSave.setHorizontalTextPosition(SwingConstants.RIGHT);
-		_btnSave.addActionListener( new ActionListener() {
+		_btnSave.addActionListener( new ActionListener() { // when click "save", the address in the textfield will be saved
 			public void actionPerformed(ActionEvent e) {
-				MapPosition savePos = new MapPosition();
-				savePos._street = _ttfStreet.getText();
+				MapPosition savePos = new MapPosition(); // create a new MapPosition Object
+				savePos._street = _ttfStreet.getText(); // set the value of the Object
 				savePos._city = _ttfCity.getText();
 				savePos._province = _ttfProvince.getText();
 				savePos._country = _ttfCountry.getText();
 				savePos._pCode = _ttfPostCode.getText();
-				savePos.writeAddress();
-				_readList.add(savePos);
+				savePos.writeAddress(); // write into file
+				_readList.add(savePos); // add the new Object into the ArrayList
 				_dropList.insertItemAt(savePos, _readList.size() - 1);
 			}
 		});
@@ -69,7 +74,7 @@ public class AddressDropList extends JPanel
 		_btnClear.setHorizontalAlignment(SwingConstants.LEFT);
 		_btnClear.setHorizontalTextPosition(SwingConstants.RIGHT);
 		_btnClear.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { // when click "clear", the textfields of address will be blank
 				_ttfCountry.setText("");
 				_ttfProvince.setText("");
 				_ttfStreet.setText("");
@@ -83,7 +88,7 @@ public class AddressDropList extends JPanel
 		
 		
 		
-		//add(output);
+		
 		JPanel dialogPane = new JPanel();
 		dialogPane.setBorder(new EmptyBorder(0, 0, 0, 0));
       	dialogPane.setOpaque(false);
@@ -92,8 +97,8 @@ public class AddressDropList extends JPanel
       	dialogPane.setBorder(new CompoundBorder(
   				new TitledBorder("Address"),
   				Borders.DIALOG_BORDER));
-      	dialogPane.setLayout(new TableLayout(new double[][] {
-  				{0.14, 0.2, 0.2, 0.2, TableLayout.FILL},// decide the rows
+      	dialogPane.setLayout(new TableLayout(new double[][] { //decide the rows and columns here
+  				{0.14, 0.2, 0.2, 0.2, TableLayout.FILL},// decide the columns and the percentage of each row to the whole panel
   				{TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED, TableLayout.PREFERRED}}));// decide columns
   			((TableLayout)dialogPane.getLayout()).setHGap(5);
   			((TableLayout)dialogPane.getLayout()).setVGap(5);
@@ -119,51 +124,28 @@ public class AddressDropList extends JPanel
   		dialogPane.add(_btnClear, new TableLayoutConstraints(4, 2, 4, 2, TableLayoutConstraints.FULL, TableLayoutConstraints.FULL));
   		add(dialogPane);
 	}
-	/*
-	public AddressDropList() {
-		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		_dropList = new JComboBox();
-		_dropList.setSelectedIndex(0);
-		_dropList.addActionListener(this);
-		add(_dropList);
-		add(_lblCountry);
-		add(_ttfCountry);
-		add(_lblProvince);
-		add(_ttfProvince);
-		add(_lblCity);
-		add(_ttfCity);
-		add(_ttfAddress);
-		add(_lblAddress);
-		add(_lblPostCode);
-		add(_ttfPostCode);
-		_mapPos = new ArrayList<MapPosition>();
-	}
-	*/
 	
+	// because the item in the ComboBox is not String, is a Object so I need to write a renderer
 	class ComboBoxRenderer extends JLabel
     					   implements ListCellRenderer {
 
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
-			int selectedIndex = ((Integer)value).intValue();
-			/*
-            if (isSelected) {
-                setBackground(list.getSelectionBackground());
-                setForeground(list.getSelectionForeground());
-            } else {
-                setBackground(list.getBackground());
-                setForeground(list.getForeground());
-            }
-            */
-			readAddress();
+			int selectedIndex = ((Integer)value).intValue(); 
+
+			readAddress(); 
 			
-            MapPosition Addr =  _readList.get(selectedIndex);
-            setText(Addr.toString());
+            MapPosition Addr =  _readList.get(selectedIndex); // get the selected Object
+            setText(Addr.toString()); // set the text of displaying in the ComboBox
 			return this;
 		}
 		
 	}
 	
+	/* 
+	 * when I choose one address in the dropdown list, 
+	 * the textfield will be filled automatically with the selected address
+	 */
 	public void actionPerformed(ActionEvent e) {
 		JComboBox cb = (JComboBox)e.getSource();
 		MapPosition Selected = (MapPosition)cb.getSelectedItem();
@@ -172,39 +154,20 @@ public class AddressDropList extends JPanel
 		_ttfCity.setText(Selected._city);
 		_ttfStreet.setText(Selected._street);
 		_ttfPostCode.setText(Selected._pCode);
-		/*
-		OutputAddr = "";
-		String [] sep = {Selected._street, Selected._city, Selected._province, Selected._country, Selected._pCode};
-		int Comma = -1;
-		for ( int i = 0; i < 5; i++ ) {
-			if (!sep[i].equals(""))
-				Comma ++;
-		}
-		
-		for ( int i = 0; i < 5; i++ ) {
-			if ( !sep[i].equals("") ) {
-				OutputAddr += sep[i].replaceAll("\\s+", "+");
-				if ( Comma > 0) {
-					OutputAddr += ",";
-					Comma --;
-				}
-			}
-		}
-		*/
-		//output.setText(OutputAddr);
+
 	}
 	
 	public String getAddress(){
-		return this.OutputAddr;
+		return this.OutputAddr; // return the string for output (get map)
 	}
 	
 	public void readAddress(){
-		try {
+		try {//read file
 			FileInputStream fstream = new FileInputStream("AddressList.txt");
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
-			while ((strLine = br.readLine()) != null) {
+			while ((strLine = br.readLine()) != null) { // read line until reach the end of the file
 				
 				for ( int i = 0; i < 5; i++ ) { // clear tokens everytime 
 					tokens[i] = "";
@@ -212,7 +175,7 @@ public class AddressDropList extends JPanel
 				
 				MapPosition temp = new MapPosition();
 				//System.out.println(strLine);
-				tokens = strLine.split(",", 5); // 5 is necessary here
+				tokens = strLine.split(",", 5); // 5 is necessary here, get 5 strings
 				/*
 				System.out.println("<" + tokens[0] + ">" +
 								   "<" + tokens[1] + ">" +
@@ -220,12 +183,12 @@ public class AddressDropList extends JPanel
 								   "<" + tokens[3] + ">" +
 								   "<" + tokens[4] + ">");
 				*/
-				temp._street = tokens[0];
+				temp._street = tokens[0]; // set the value of the MapPosition
 				temp._city = tokens[1];
 				temp._province = tokens[2];
 				temp._country = tokens[3];
 				temp._pCode = tokens[4];
-				_readList.add(temp);
+				_readList.add(temp); // add the red address into the ArrayList
 			}
 			in.close();
 		}
@@ -237,7 +200,7 @@ public class AddressDropList extends JPanel
 	
 	public void setDropList() {
 
-		
+		// initial the ComboBox
 		if (_readList.size() > 0) {
 			MapPosition[] PosArray = new MapPosition[_readList.size()];
 			_dropList = new JComboBox(_readList.toArray(PosArray));
@@ -246,7 +209,8 @@ public class AddressDropList extends JPanel
 		}
 	}
 	
-	public static void main(String[] args) {
+	// main is just for run a demo
+	public static void main(String[] args) { 
         //Create and set up the window.
 		ArrayList<MapPosition> temp = new ArrayList<MapPosition>();
 		MapPosition p1 = new MapPosition();
